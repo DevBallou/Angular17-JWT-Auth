@@ -1,0 +1,41 @@
+
+1)Create forlder Project-Angular/api.
+
+2)/api> npm init -y
+
+3)/api/package.json
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
+
+4) Create folder projectAngular/api/src/server.ts
+
+5) write into server.ts
+	console.log("app working !!");
+
+6) /api> npx i -D typescript ts-node nodemon @types/node
+
+7) check is working /api> npm run dev
+
+8) /api> npm i express
+
+9) /api> npm i -D @types/express
+
+10) /api> npm i mongoose
+
+11) /api> npm i -D @types/mongoose

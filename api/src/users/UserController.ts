@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import UserSchema from "./UserSchema";
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+import config from "../config/config";
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
   const { name, email, password } = req.body;
@@ -52,9 +54,18 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
+    const token = sign({ sub: user._id }, config.jwtSecret as string, {
+      expiresIn: '1d',
+    });
 
+    res.status(200).json({
+      status: true,
+      message: 'User logged in',
+      data: { _id: user._id, email: user.email, name: user.name },
+      token,
+    })
   } catch (error) {
-
+    res.status(500).json({ error: 'Something went wrong' });
   }
 }
 

@@ -2,10 +2,13 @@
   <div class="container-fluid">
     <a class="navbar-brand">Angular JWT Auth</a>
     <div class="">
+      @if(isLoggedIn) {
       <a routerLink="dashboard" class="navbar-brand">Dashboard</a>
+      } @else {
       <a routerLink="login" class="navbar-brand">Se connecter</a>
       <a routerLink="register" class="navbar-brand">S'inscription</a>
       <a routerLink="profile" class="navbar-brand">profile</a>
+      }
     </div>
   </div>
 </nav>

@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center">
+  <div class="card" style="width: 26rem;">
+    <div class="card-header">S'inscrire Là</div>
+    <div class="card-body">
+      <form [formGroup]="form" (submit)="submitRegister()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Le nom complet</label>
+          <input type="text" name="name" class="form-control" id="name" formControlName="name" required />
+        </div>
+        <!-- <div class="alert alert-danger" [hidden]="!error.name">{{ error.name }}</div> -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" id="email" formControlName="email" required />
+        </div>
+        <!-- <div class="alert alert-danger" [hidden]="!error.email">{{ error.email }}</div> -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe</label>
+          <input type="password" name="password" class="form-control" id="password" formControlName="password"
+            required />
+        </div>
+        <!-- <div class="alert alert-danger" [hidden]="!error.password">{{ error.password }}</div> -->
+        <div class="mb-3">
+          <label for="cpassword" class="form-label">Confirmer le mot de passe</label>
+          <input type="password" name="password_confirmation" class="form-control" id="cpassword"
+            formControlName="password_confirmation" required />
+        </div>
+        <!-- <div class="alert alert-danger" [hidden]="!error.password_confirmation">{{ error.password_confirmation }}</div> -->
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">S'inscrire</button>
+      </form>
+    </div>
+  </div>
+</div>

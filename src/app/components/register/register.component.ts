@@ -1,6 +1,8 @@
 import { error } from 'console';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +11,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
+  authService = inject(AuthService);
+  router = inject(Router);
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -24,7 +28,12 @@ export class RegisterComponent implements OnInit {
 
   submitRegister() {
     if (this.form.valid) {
-      console.log(this.form.value);
+      // console.log(this.form.value);
+      this.authService.register(this.form.value).subscribe({
+        next: (response) => {
+          this.router.navigate(['login']);
+        }
+      });
     }
   }
 }

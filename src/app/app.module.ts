@@ -22,7 +22,7 @@ import { httpInterceptor } from './core/interceptors/http.interceptor';
     RegisterComponent,
     ProfileComponent,
     LayoutComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

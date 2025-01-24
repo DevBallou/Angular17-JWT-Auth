@@ -1,32 +1,93 @@
-<div class="d-flex justify-content-center">
-  <div class="card" style="width: 26rem;">
-    <div class="card-header">S'inscrire Là</div>
-    <div class="card-body">
-      <form [formGroup]="form" (submit)="submitRegister()">
-        <div class="mb-3">
-          <label for="name" class="form-label">Le nom complet</label>
-          <input type="text" name="name" class="form-control" id="name" formControlName="name" required />
+<div class="card shadow-lg rounded-3" style="width: 26rem;">
+  <div class="card-header bg-primary text-white py-3">
+    <h4 class="mb-0"><i class="fas fa-user-plus me-2"></i>S'inscrire</h4>
+  </div>
+  <div class="card-body p-4">
+    <form [formGroup]="form" (ngSubmit)="submitRegister()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nom complet</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+          <input type="text" class="form-control" id="name" formControlName="name"
+            [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+            placeholder="Votre nom complet" />
         </div>
-        <!-- <div class="alert alert-danger" [hidden]="!error.name">{{ error.name }}</div> -->
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" name="email" class="form-control" id="email" formControlName="email" required />
+        <div class="invalid-feedback" *ngIf="form.get('name')?.errors?.['required'] && form.get('name')?.touched">
+          Le nom est requis
         </div>
-        <!-- <div class="alert alert-danger" [hidden]="!error.email">{{ error.email }}</div> -->
-        <div class="mb-3">
-          <label for="password" class="form-label">Mot de passe</label>
-          <input type="password" name="password" class="form-control" id="password" formControlName="password"
-            required />
+        <div class="invalid-feedback" *ngIf="form.get('name')?.errors?.['minlength'] && form.get('name')?.touched">
+          Le nom doit avoir au moins 2 caractères
         </div>
-        <!-- <div class="alert alert-danger" [hidden]="!error.password">{{ error.password }}</div> -->
-        <div class="mb-3">
-          <label for="cpassword" class="form-label">Confirmer le mot de passe</label>
-          <input type="password" name="password_confirmation" class="form-control" id="cpassword"
-            formControlName="password_confirmation" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          <input type="email" class="form-control" id="email" formControlName="email"
+            [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+            placeholder="votreemail@exemple.com" />
         </div>
-        <!-- <div class="alert alert-danger" [hidden]="!error.password_confirmation">{{ error.password_confirmation }}</div> -->
-        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">S'inscrire</button>
-      </form>
-    </div>
+        <div class="invalid-feedback" *ngIf="form.get('email')?.errors?.['required'] && form.get('email')?.touched">
+          L'email est requis
+        </div>
+        <div class="invalid-feedback" *ngIf="form.get('email')?.errors?.['email'] && form.get('email')?.touched">
+          Format d'email invalide
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password"
+            formControlName="password"
+            [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+            placeholder="Mot de passe" />
+          <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+            <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+        <div class="invalid-feedback"
+          *ngIf="form.get('password')?.errors?.['required'] && form.get('password')?.touched">
+          Le mot de passe est requis
+        </div>
+        <div class="invalid-feedback"
+          *ngIf="form.get('password')?.errors?.['minlength'] && form.get('password')?.touched">
+          Le mot de passe doit avoir au moins 8 caractères
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="cpassword" class="form-label">Confirmer le mot de passe</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control" id="cpassword"
+            formControlName="password_confirmation"
+            [class.is-invalid]="form.get('password_confirmation')?.invalid && form.get('password_confirmation')?.touched || passwordMismatch"
+            placeholder="Confirmer le mot de passe" />
+          <button type="button" class="btn btn-outline-secondary" (click)="showConfirmPassword = !showConfirmPassword">
+            <i [class]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+        <div class="invalid-feedback"
+          *ngIf="form.get('password_confirmation')?.errors?.['required'] && form.get('password_confirmation')?.touched">
+          La confirmation du mot de passe est requise
+        </div>
+        <div class="invalid-feedback" *ngIf="passwordMismatch">
+          Les mots de passe ne correspondent pas
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 py-2 mb-3" [disabled]="form.invalid || isLoading">
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+        S'inscrire
+      </button>
+
+      <p class="text-center mb-0">
+        Déjà un compte?
+        <a routerLink="/login" class="text-primary">Se connecter</a>
+      </p>
+    </form>
   </div>
 </div>

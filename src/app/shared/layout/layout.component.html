@@ -1,18 +1,5 @@
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand">Angular JWT Auth</a>
-    <div class="">
-      @if(isLoggedIn) {
-      <a routerLink="dashboard" class="navbar-brand">Dashboard</a>
-      } @else {
-      <a routerLink="login" class="navbar-brand">Se connecter</a>
-      <a routerLink="register" class="navbar-brand">S'inscription</a>
-      <a routerLink="profile" class="navbar-brand">profile</a>
-      }
-    </div>
-  </div>
-</nav>
+<app-navbar></app-navbar>
 
-<main class="container mt-5">
+<main class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
   <router-outlet></router-outlet>
 </main>

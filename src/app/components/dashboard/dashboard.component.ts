@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
         console.log(response);
         this.user = response.data;
       }
-    })
+    });
   }
 
   logout() {

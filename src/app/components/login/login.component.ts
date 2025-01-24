@@ -10,8 +10,11 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public form: FormGroup;
+  showPassword = false;
+  isLoading = false;
   authService = inject(AuthService);
   router = inject(Router);
+  errorMessage = '';
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -22,14 +25,21 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  submitLogin() {
+  async submitLogin() {
     if (this.form.valid) {
-      // console.log(this.form.value);
-      this.authService.login(this.form.value).subscribe({
-        next: (response) => {
-          this.router.navigate(['']);
-        }
-      });
+      this.isLoading = true;
+      try {
+        await this.authService.login(this.form.value).subscribe({
+          next: (response) => {
+            this.router.navigate(['']);
+          }
+        });
+
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.isLoading = false;
+      }
     }
   }
 

@@ -6,15 +6,6 @@ import { Component, effect, Injector, inject, OnInit } from '@angular/core';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
-export class LayoutComponent implements OnInit {
-  authService = inject(AuthService);
-  injector = inject(Injector);
-  isLoggedIn = false;
-
-  ngOnInit(): void {
-    effect(() => {
-      this.isLoggedIn = this.authService.isLoggedIn();
-    }, { injector: this.injector });
-  }
+export class LayoutComponent {
 
 }

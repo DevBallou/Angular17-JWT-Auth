@@ -73,14 +73,18 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 const me = async (req: Request, res: Response, next: NextFunction) => {
   const _request = req as AuthRequest;
   const user = await UserSchema.findById(_request.userId);
-  if (user) {
-    res.status(200).json({
-      status: true,
-      data: { _id: user._id, email: user.email, name: user.name },
-    });
+  try {
+    if (user) {
+      res.status(200).json({
+        status: true,
+        data: { _id: user._id, email: user.email, name: user.name },
+      });
+    }
+
+  } catch (error) {
+    res.status(500).json({ error: 'Something went wrong' });
   }
 
-  res.status(500).json({ error: 'Something went wrong' });
 };
 
 export {
